@@ -1,0 +1,122 @@
+<template>
+    <lightning-card>
+
+            <div class="slds-form-element">
+
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        
+                        <div class={dynamiClassname} data-id="resultBox" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                            <div class="contentWrapper slds-theme_default" style="border-color: #cdcdcd;" data-aura-rendered-by="487:2941;a">
+                                <div class="inputWrapper slds-grid slds-grid_vertical-align-center slds-p-right_x-small" data-aura-rendered-by="488:2941;a">            
+                                    <div class="entityMenu slds-p-left--xxx-small slds-p-top_x-large uiMenu" data-aura-rendered-by="542:2941;a" data-aura-class="uiMenu">
+                                        <div id="495:2941;a" data-aura-rendered-by="509:2941;a" class="uiPopupTrigger" data-aura-class="uiPopupTrigger" data-interactive-uid="8">
+                                            <button class="slds-button slds-button_icon " title="Show More" style="display: inline-flex;"
+                                            onclick={showObjects} onblur={blurObjectList}>
+                                            <lightning-icon icon-name={iconName} alternative-text={alternativeText} title={title} size="small"
+                                            class="objectIcons"></lightning-icon>
+                                            <lightning-icon size="x-small" icon-name="utility:down" alternative-text="downIcon" class="dropdownIcon">
+                                            </lightning-icon>
+                                        </button>
+                                        </div>
+                                        <template if:true={showObjectList}>
+                                            <div style="width: max-content;" class="entityMenuList popupTargetContainer uiPopupTarget uiMenuList uiMenuList--left uiMenuList--default visible positioned" data-aura-rendered-by="537:2941;a" data-aura-class="uiPopupTarget uiMenuList uiMenuList--left uiMenuList--default" aria-labelledby="495:2941;a">
+                                            <div role="menu" class="entityMenuList" data-aura-rendered-by="531:2941;a">
+                                                <ul role="presentation" class="scrollable" data-aura-rendered-by="533:2941;a">
+                                                <template for:each={objectList} for:item="eachObject">
+                                                    <li data-item={eachObject.name} data-icon={eachObject.iconName} id={eachObject.name}
+                                                    role="presentation" onmousedown={selectObject}
+                                                    key={eachObject}
+                                                    class="entityMenuItemContact uiMenuItem forceSearchEntityMenuItem" data-aura-rendered-by="3:3785;a" data-aura-class="uiMenuItem forceSearchEntityMenuItem">
+                                                    <a href="javascript:void(0);" role="menuitem">
+                                                        <lightning-icon icon-name={eachObject.iconName} alternative-text={eachObject.title}
+                                                        title={eachObject.title} class="objectIcons" size="small"></lightning-icon>
+                                                        <span class="objectName">{eachObject.title}</span>
+                                                    </a>
+                                                    </li>
+                                                </template>
+                                                </ul>
+                                            </div>
+                                            </div>  
+                                        </template>
+                                    </div>
+                                    <div class="autocompleteWrapper slds-grow" data-aura-rendered-by="544:2941;a">
+                                        <lightning-input 
+                                            required={required} 
+                                            onclick={handleClick}
+                                            data-id="userinput" 
+                                            label={Label} 
+                                            name="searchText" 
+                                            onchange={searchField} 
+                                            disabled={disableInputField}
+                                            role="combobox" 
+                                            aria-autocomplete="list" 
+                                            maxlength="500" 
+                                            aria-expanded="false" 
+                                            aria-haspopup="true" 
+                                            type="search"
+                                            class="slds-input customBorder"
+                                            style="border: none;padding-left: 5px;"
+                                            aria-describedby="" 
+                                            id="482:2941;a" 
+                                            aria-activedescendant=""  
+                                            data-aura-rendered-by="576:2941;a" 
+                                            data-aura-class="uiInput uiInputTextForAutocomplete uiInput--default uiInput--input uiInput uiAutocomplete uiInput--default uiInput--lookup" 
+                                            data-interactive-lib-uid="17" 
+                                            spellcheck="false" 
+                                            autocorrect="off" 
+                                            title="Search Contacts">
+                                        </lightning-input>
+                                    </div>
+
+                                    <!--Search icon-->
+                                    <lightning-icon size="x-small" icon-name="utility:search" class="slds-icon-utility-search inputLookupIcon slds-button_icon-xx-small slds-icon_container slds-p-top_medium" data-aura-rendered-by="586:2941;a">
+                                    </lightning-icon>
+                                </div>
+
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                    <template for:each={selectedRecords} for:item="serecord">
+                                        <span key={serecord.recId}>
+                                        <lightning-pill label={serecord.recName} name={serecord.recId} onremove={removeRecord}>
+                                                <lightning-icon icon-name={iconName} variant="circle" alternative-text={serecord.recName}></lightning-icon>
+                                            </lightning-pill>
+                                        </span>
+                                    </template>
+                                </div>
+                            </div>
+                            <!--Display Search result-->
+                            <template if:true={showRecList}>
+                                <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template for:each={searchRecords} for:item="serecord">
+                                            <li role="presentation" class="slds-listbox__item" key={serecord.recId} >
+    
+                                                <div data-id={serecord.recId} data-name={serecord.recName} onclick={setSelectedRecord} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                                    <span class="slds-media__figure">
+                                                        <span class="slds-icon_container slds-icon-standard-account">
+                                                            <lightning-icon icon-name={iconName} class="slds-icon slds-icon slds-icon_small slds-icon-text-default" size="x-small"></lightning-icon>
+                                                        </span>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">{serecord.recName}</span>
+                                                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{objectName} • {serecord.recName}</span>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                                <div if:true={messageFlag}>
+                                    No result found.
+                                </div>
+                                <div if:true={LoadingText}>
+                                    Loading...
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </lightning-card>
+</template>
