@@ -22,7 +22,7 @@ public class MultiSelectMultiObjectLookupController {
             //if this field is set to true then provide the correct filter field and filter field value 
             if(useFilterCriteria){
                 query = query+ fieldName+' FROM '+ObjectName+' WHERE '+fieldName+' LIKE \'%' + value.trim() + '%\' and ID NOT IN: selectedRecId ';
-                query = query+' and '+filterField+'='+filterFieldValue + ' LIMIT 10';
+                query = query+' and '+filterField+'= \''+filterFieldValue + '\' LIMIT 10';
                 
             }else{ //otherwise fetch the set of records based on the search key
                 query = query+ fieldName+' FROM '+ObjectName+' WHERE '+fieldName+' LIKE \'%' + value.trim() + '%\' and ID NOT IN: selectedRecId';
