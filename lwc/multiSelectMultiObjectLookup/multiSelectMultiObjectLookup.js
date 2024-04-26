@@ -42,8 +42,6 @@ export default class MultiSelectMultiObjectLookup extends LightningElement {
     @track messageFlag = false;
     @track showRecList;
     connectedCallback() {
-        console.log('LookuoComponentinserted')
-        console.log(this.selectedFromParent);
         if(this.selectedFromParent != undefined){
             this.selectedRecords = [...this.selectedFromParent];
             if(this.singleSelection){
@@ -95,21 +93,15 @@ export default class MultiSelectMultiObjectLookup extends LightningElement {
 
         var recId = event.currentTarget.dataset.id;
         var selectName = event.currentTarget.dataset.name;
-        console.log(recId);
-        //console.log(selectName);
         let newsObject = { 'recId' : recId ,'recName' : selectName };
         this.selectedIds.push(recId);
         this.selectedRecords.push(newsObject);
-        console.log(this.selectedIds);
         this.dynamiClassname =  'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
         //let selRecords = this.selectedRecords;
         this.template.querySelectorAll('lightning-input').forEach(each => {
             each.value = '';
         });
-        console.log('event dispatch');
-        //console.log(this.selectedIds);
         let ids = this.selectedIds.toString();
-        console.log(ids);
         if(this.ObjectName != this.previousSelectedObject) {
             ids = '';
         }
@@ -160,7 +152,6 @@ export default class MultiSelectMultiObjectLookup extends LightningElement {
         if(this.ObjectName != this.previousSelectedObject) {
             this.selectedRecords = [];
         }
-        console.log('selectedRecords::' + this.selectedRecords)
     }
     blurObjectList(event){
         this.showObjectList = false;
