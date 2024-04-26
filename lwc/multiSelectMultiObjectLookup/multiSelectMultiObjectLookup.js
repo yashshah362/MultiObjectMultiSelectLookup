@@ -55,9 +55,9 @@ export default class MultiSelectMultiObjectLookup extends LightningElement {
         
         var currentText = event.target.value;
         var selectRecId = [];
-        for(let i = 0; i < this.selectedRecords.length; i++){
-            selectRecId.push(this.selectedRecords[i].recId);
-        }
+        selectRecId = this.selectedRecords.map((x) => x.recId);
+
+
         this.LoadingText = true;
         this.useFilterCriteria = false;
         this.filterFieldValue = true;
